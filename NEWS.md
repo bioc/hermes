@@ -1,3 +1,6 @@
+# hermes 0.99.3
+* Corrected authors.
+
 # hermes 0.99.2
 * First public release of the `hermes` package.
 * Submission to BioConductor.
