@@ -1,4 +1,4 @@
-# hermes 0.99.3
+# hermes 0.99.4
 * Corrected authors.
 
 # hermes 0.99.2

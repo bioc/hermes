@@ -2,8 +2,6 @@
 title: "Introduction to `hermes`"
 package: hermes
 author:
-  - name: Daniel Sabanés Bové
-    email: daniel.sabanes_bove@roche.com
   - Namrata Bhatia
   - Stefanie Bienert
   - Benoit Falquet
@@ -17,13 +15,15 @@ author:
   - Chendi Liao
   - Carolyn Zhang
   - Joseph N. Paulson
+  - name: Daniel Sabanés Bové
+    email: daniel.sabanes_bove@roche.com
 output: 
   BiocStyle::html_document:
     toc_float: true
 vignette: |
   %\VignetteIndexEntry{Introduction to `hermes`}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
 editor_options:
   chunk_output_type: console
 ---
@@ -325,19 +325,10 @@ achieved with the `normalize()` function. The `normalize()` function can also tr
 object_normalized <- normalize(object_flagged_filtered)
 ```
 
-```{r}
-object_rlog_normalized <- normalize(object_flagged_filtered, "rlog")
-```
-
-
 The corresponding assays are saved in the object and can be accessed with `assay()`.
 
 ```{r}
 assay(object_normalized, "tpm")[1:3, 1:3]
-```
-
-```{r}
-assay(object_rlog_normalized, "rlog")[1:3, 1:3]
 ```
 
 The used control settings can be accessed afterwards from the metadata of the object:
