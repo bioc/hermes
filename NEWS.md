@@ -1,3 +1,10 @@
+# hermes 1.0.1
+* Additional `version` argument for `connect_biomart` to specify an Ensembl version.
+* Fixed tests.
+
+# hermes 1.0.0
+* First BioConductor release.
+
 # hermes 0.99.4
 * Corrected authors.
 
@@ -11,7 +18,6 @@
 * New check function `check_proportion` which checks for a single proportion.
 * Better legends on the genes barplot and the correlation heatmap.
 * Improved vignette layout using the BioConductor style.
-* Additional `version` argument for `connect_biomart` to specify an Ensembl version.
 
 # hermes 0.1.1
 
