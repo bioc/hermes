@@ -27,6 +27,7 @@ Authors:
   \item Haocheng Li
   \item Jeff Luong
   \item Lyndsee Midori Zhang \email{zhang.lyndsee@gene.com}
+  \item Alex Richardson
   \item Simona Rossomanno
   \item Tim Treis
   \item Mark Yan
@@ -34,6 +35,11 @@ Authors:
   \item Chendi Liao \email{chendi.liao@roche.com}
   \item Carolyn Zhang
   \item Joseph N. Paulson \email{paulson.joseph@gene.com}
+}
+
+Other contributors:
+\itemize{
+  \item F. Hoffmann-La Roche AG [copyright holder, funder]
 }
 
 }
