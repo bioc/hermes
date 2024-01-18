@@ -81,7 +81,7 @@ NULL
 #' @param value (`list`)\cr the list to replace the current metadata with.
 #'
 #' @return The metadata which is a list.
-#' @importFrom S4Vectors `metadata<-`
+#' @importFrom S4Vectors metadata<-
 #' @importMethodsFrom S4Vectors metadata
 #' @exportMethod metadata
 #' @export `metadata<-`
@@ -146,7 +146,7 @@ setMethod(
 #'   that additional annotations beyond the required ones may be supplied and
 #'   will be stored.
 #'
-#' @importFrom BiocGenerics `annotation<-`
+#' @importFrom BiocGenerics annotation<-
 #' @rdname annotation
 #' @export
 setReplaceMethod(
@@ -188,6 +188,7 @@ setReplaceMethod(
 #'
 #' @param object (`AnyHermesData`)\cr object to access the counts from.
 #' @param value (`matrix`)\cr what should the counts assay be replaced with.
+#' @param ... not used.
 #'
 #' @return The counts assay.
 #'
@@ -202,7 +203,7 @@ setReplaceMethod(
 setMethod(
   f = "counts",
   signature = "AnyHermesData",
-  definition = function(object) {
+  definition = function(object, ...) {
     assay(object)
   }
 )
@@ -214,7 +215,7 @@ setMethod(
 #'   are not identical to the `dimnames` on the `AnyHermesData` object;
 #'   it does not influence actual assignment of `dimnames` to the assay
 #'   (they're always stored as-is).
-#' @importFrom BiocGenerics `counts<-`
+#' @importFrom BiocGenerics counts<-
 #' @export
 #'
 #' @examples
@@ -223,7 +224,7 @@ setMethod(
 setReplaceMethod(
   f = "counts",
   signature = signature(object = "AnyHermesData", value = "matrix"),
-  definition = function(object, value, withDimnames = TRUE) {
+  definition = function(object, ..., withDimnames = TRUE, value) {
     assay(object, withDimnames = withDimnames) <- value
     validObject(object)
     object
@@ -581,10 +582,12 @@ h_map_pos <- function(names, map) {
 #'
 #' @return The [`SummarizedExperiment::SummarizedExperiment`] object with renamed contents.
 #'
-#' @importFrom S4Vectors `rename`
+#' @importFrom S4Vectors rename
 #' @export
 #' @examples
 #' x <- summarized_experiment
+#' # Use deliberately a non-standard assay name in this example.
+#' assayNames(x) <- "count"
 #'
 #' # Rename `HGNC` to `symbol` in the `rowData`.
 #' x <- rename(x, row_data = c(symbol = "HGNC"))
@@ -594,8 +597,8 @@ h_map_pos <- function(names, map) {
 #' x <- rename(x, col_data = c(low_depth_flag = "LowDepthFlag"))
 #' tail(names(colData(x)))
 #'
-#' # Rename assay `counts` to `count`.
-#' x <- rename(x, assays = c(count = "counts"))
+#' # Rename assay `count` to `counts`.
+#' x <- rename(x, assays = c(counts = "count"))
 #' assayNames(x)
 setMethod(
   f = "rename",

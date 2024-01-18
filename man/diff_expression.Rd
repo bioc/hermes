@@ -52,15 +52,15 @@ A corresponding \code{autoplot()} method is visualizing the results as a volcano
 \details{
 Possible method choices are:
 \itemize{
-\item \code{voom}: uses \code{\link[limma:voom]{limma::voom()}}, see \code{\link[=h_diff_expr_voom]{h_diff_expr_voom()}} for details.
+\item voom: uses \code{\link[limma:voom]{limma::voom()}}, see \code{\link[=h_diff_expr_voom]{h_diff_expr_voom()}} for details.
 \item \code{deseq2}: uses \code{\link[DESeq2:DESeq]{DESeq2::DESeq()}}, see \code{\link[=h_diff_expr_deseq2]{h_diff_expr_deseq2()}} for details.
 }
 }
 \section{Functions}{
 \itemize{
-\item \code{autoplot,HermesDataDiffExpr-method}: generates a volcano plot for a \code{\link{HermesDataDiffExpr}} object.
-}}
+\item \code{autoplot(HermesDataDiffExpr)}: generates a volcano plot for a \code{\link{HermesDataDiffExpr}} object.
 
+}}
 \note{
 \itemize{
 \item We provide the \code{\link[=df_cols_to_factor]{df_cols_to_factor()}} utility function that makes it easy to convert the

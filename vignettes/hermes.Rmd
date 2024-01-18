@@ -2,12 +2,15 @@
 title: "Introduction to `hermes`"
 package: hermes
 author:
+  - name: Daniel Sabanés Bové
+    email: daniel.sabanes_bove@roche.com
   - Namrata Bhatia
   - Stefanie Bienert
   - Benoit Falquet
   - Haocheng Li
   - Jeff Luong
   - Lyndsee Midori Zhang
+  - Alex Richardson
   - Simona Rossomanno
   - Tim Treis
   - Mark Yan
@@ -15,8 +18,6 @@ author:
   - Chendi Liao
   - Carolyn Zhang
   - Joseph N. Paulson
-  - name: Daniel Sabanés Bové
-    email: daniel.sabanes_bove@roche.com
 output: 
   BiocStyle::html_document:
     toc_float: true
@@ -39,7 +40,7 @@ knitr::opts_chunk$set(
 
 `hermes` is a successor of the Roche internal `rnaseqTools` R package, and therefore many code ideas have been borrowed from it. Therefore we would like to thank the `rnaseqTools` authors for their work.
 
-In particular, we would like to acknowledge Chendi Liao and Joe Paulson for their guidance and explanations during the development of `hermes`. We also discussed the class design with Valerie Obenchain, and discussed RNAseq data standards with Armen Karapetyan. We borrowed some ideas from the Roche internal `biokitr` R package and discussed them with its maintainer Daniel Marbach.
+In particular, we would like to acknowledge Chendi Liao and Joe Paulson for their guidance and explanations during the development of `hermes`. We also discussed the class design with Valerie Obenchain, and discussed `RNAseq` data standards with Armen Karapetyan. We borrowed some ideas from the Roche internal `biokitr` R package and discussed them with its maintainer Daniel Marbach.
 
 Finally, `hermes` originated as part of the NEST project. 
 We are grateful for the entire team's support.
@@ -50,13 +51,15 @@ Thanks a lot to everyone involved!
 
 First let's see how we can install the `hermes` package.
 
-## BioConductor
+## `BioConductor`
 
-With the development version (3.15) of BioConductor, 
+With the development version (3.15) of `BioConductor`, 
 you can install the current package version with:
 
 ```{r bioc-installation, eval = FALSE}
-# install.packages("BiocManager")
+if (!require("BiocManager")) {
+  install.packages("BiocManager")
+}
 BiocManager::install("hermes")
 ```
 
@@ -65,23 +68,20 @@ BiocManager::install("hermes")
 You can install the unstable development version from GitHub with:
 
 ```{r gh-installation, eval = FALSE}
-# install.packages("devtools")
+if (!require("devtools")) {
+  install.packages("devtools")
+}
 devtools::install_github("insightsengineering/hermes")
 ```
 
 # Introduction
 
-The `hermes` R package provides classes, methods and functions to import, quality-check, filter, normalize, analyze RNAseq counts data. The core functionality is built on the BioConductor ecosystem, especially `SummarizedExperiment`.
-New users should first begin by reading the "Introduction to `hermes`" vignette to become familiar with the `hermes` concepts.
-
-```{r, eval=FALSE}
-vignette(topic = "introduction", package = "hermes")
-```
+The `hermes` R package provides classes, methods and functions to import, quality-check, filter, normalize, analyze `RNAseq` counts data. The core functionality is built on the `BioConductor` ecosystem, especially `SummarizedExperiment`. This is the vignette to read for new users of this package.
 
 In this vignette you are going to learn how to:
 
-* Import RNAseq count data into the `hermes` ready format.
-* Annotate gene information automatically from a central database (e.g. BioMart).
+* Import `RNAseq` count data into the `hermes` ready format.
+* Annotate gene information automatically from a central database (e.g. `BioMart`).
 * Add quality control (QC) flags to genes and samples.
 * Filter the data set.
 * Normalize the counts.
@@ -176,6 +176,22 @@ For the below, let's use the already prepared `HermesData` object.
 object <- hermes_data
 ```
 
+Likewise, when we receive the error "no 'counts' assay found", we can use the `rename()` function to change the name of the assay in the `SummarizedExperiment` object to `counts`. For example, the following object of type `SummarizedExperiment` would have the assay name `count`, and would produce the assay name error:
+
+```{r}
+object_exp <- summarized_experiment %>%
+  rename(assays = c(count = "counts"))
+```
+
+And we would use the following code to convert the assay name to `counts`, making it able to convert into `HermesData` object:
+
+```{r}
+object_exp <- rename(object_exp,
+  assays = c(counts = "count")
+)
+object_exp <- HermesData(object_exp)
+```
+
 ## Importing an `ExpressionSet`
 
 If we start from an `ExpressionSet`, we can first convert it to a `RangedSummarizedExperiment` and then import it to `RangedHermesData`:
@@ -217,7 +233,7 @@ allow for future extensions in this or other downstream packages.
 ## Connection to Database
 
 The first step is to connect to a database. In `hermes` the only option is currently databases that utilize the
-BioMart software suite.
+`BioMart` software suite.
 However due to the generic function design, it is simple to extend `hermes` with other data base
 connections.
 
@@ -255,7 +271,7 @@ Note that not all genes might be found in the data base and the corresponding ro
 
 ## Automatic Gene and Sample Flagging
 
-For genes, it is counted how many samples don't pass a minimum expression CPM (counts per million reads mapped) threshold.
+For genes, it is counted how many samples don't pass a minimum expression `CPM` (counts per million reads mapped) threshold.
 If too many, then this gene is flagged as a "low expression" gene.
 
 For samples, two flags are provided. The "technical failure" flag is based on the average Pearson correlation with other
@@ -318,7 +334,7 @@ object_flagged_subsetted <- subset(
 
 # Normalizing Counts
 
-Normalizing counts within samples (CPM), genes (RPKM) or across both (TPM) can be
+Normalizing counts within samples (`CPM`), genes (RPKM) or across both (TPM) can be
 achieved with the `normalize()` function. The `normalize()` function can also transform the counts by the variance stabilizing transformation (`vst`) and the regularized log transformation (`rlog`) as proposed in the `DESeq2` package.
 
 ```{r}
@@ -382,9 +398,26 @@ most_var_genes <- top_genes(object_normalized, summary_fun = rowSds)
 autoplot(most_var_genes)
 ```
 
+## Heatmap of Genes among Samples
+
+Relative expression of genes can be displayed using a heatmap
+
+```{r}
+draw_heatmap(object[1:20], assay_name = "counts")
+```
+
+The heatmap can be grouped by labels in the `HermesData` object, 
+such as `"COUNTRY"` or `"AGEGRP"`.
+
+```{r}
+draw_heatmap(object[1:20], assay_name = "counts", col_data_annotation = "COUNTRY")
+```
+
 ## Correlation between Samples
 
-A sample correlation matrix between samples can be obtained with the `correlate()` function. This can be visualized in a heatmap using `autoplot()` again. See `?calc_cor` for detailed options.
+A sample correlation matrix between samples can be obtained with the 
+`correlate()` function. This can be visualized in a heatmap using `autoplot()` 
+again. See `?calc_cor` for detailed options.
 
 ```{r}
 cor_mat <- correlate(object)
@@ -428,12 +461,12 @@ autoplot(pca_cor)
 
 # QC Report Template
 
-In order to quickly obtain a quality control report for a new RNAseq data set, you can proceed as follows.
+In order to quickly obtain a quality control report for a new `RNAseq` data set, you can proceed as follows.
 
 1. Save your input `SummarizedExperiment` using R's `save()` function in a binary data file (e.g. ending with `.rda` suffix).
-1. Load the `hermes` package in RStudio and click on: `File` > `New File` > `R Markdown` > `From Template` and select the QC report template from `hermes`.
-![Rmd_template_selection](rmd_template_selection.png){width=4in}
-1. Fill in the few parameters in the yaml header, including the required file paths for the input file from above, and where the resulting `HermesData` object should be saved.
+1. Load the `hermes` package in `RStudio` and click on: `File` > `New File` > `R Markdown` > `From Template` and select the QC report template from `hermes`.
+![`Rmd_template_selection`](rmd_template_selection.png){width=4in}
+1. Fill in the few parameters in the `yaml` header, including the required file paths for the input file from above, and where the resulting `HermesData` object should be saved.
 1. Knit the document.
 
 The report contains the above mentioned descriptive plots and PCA analyses and can be a useful starting point for your analysis.
@@ -459,12 +492,12 @@ autoplot(diff_res, log2_fc_thresh = 8)
 
 # Summary
 
-The `hermes` R package provides classes, methods and functions to import, quality-check, filter, normalize and analyze RNAseq counts data. In particular, the robust object-oriented framework allows for easy extensions in the future to address user feature requests. These and other feedback are very welcome - thank you very much in advance for your thoughts on `hermes`!
+The `hermes` R package provides classes, methods and functions to import, quality-check, filter, normalize and analyze `RNAseq` counts data. In particular, the robust object-oriented framework allows for easy extensions in the future to address user feature requests. These and other feedback are very welcome - thank you very much in advance for your thoughts on `hermes`!
 
 # Session Info {.unnumbered}
 
 Here is the output of `sessionInfo()` on the system on which this document was
-compiled running pandoc `r rmarkdown::pandoc_version()`:
+compiled running `pandoc` `r rmarkdown::pandoc_version()`:
 
 ```{r sessionInfo, echo=FALSE}
 sessionInfo()

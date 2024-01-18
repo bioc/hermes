@@ -1,8 +1,9 @@
+Type: Package
 Package: hermes
 Title: Preprocessing, analyzing, and reporting of RNA-seq data
 Type: Package
-Date: 2022-05-05
-Version: 1.7.0
+Date: 2024-01-19
+Version: 1.7.1
 Authors@R: c(
     person("Daniel", "Sabanés Bové", email = "daniel.sabanes_bove@roche.com", role = c("aut", "cre")),
     person("Namrata", "Bhatia", role = "aut"),
@@ -17,41 +18,31 @@ Authors@R: c(
     person("Naomi", "Chang", role = "aut"),
     person("Chendi", "Liao", email = "chendi.liao@roche.com", role = "aut"),
     person("Carolyn Zhang", role = "aut"),
-    person("Joseph N.", "Paulson", email = "paulson.joseph@gene.com", role = "aut")
+    person("Joseph N.", "Paulson", email = "paulson.joseph@gene.com", role = "aut"),
+    person("F. Hoffmann-La Roche AG", role = c("cph", "fnd"))
   )
-Description: Provides classes and functions for quality control, filtering, 
-  normalization and differential expression analysis of pre-processed RNA-seq 
-  data. Data can be imported from `SummarizedExperiment` as well as `matrix`
-  objects and can be annotated from BioMart. Filtering for genes without too 
-  low expression or containing required annotations, as well as filtering for
-  samples with sufficient correlation to other samples or total number of reads 
-  is supported. The standard normalization methods including `cpm`, `rpkm` and 
-  `tpm` can be used, and `DESeq2` as well as `voom` differential expression 
-  analyses are available.
-License: Apache License 2.0 | file LICENSE
-Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
-RdMacros: Rdpack, lifecycle
-LazyData: true
-VignetteBuilder: knitr 
+Description: Provides classes and functions for quality control,
+    filtering, normalization and differential expression analysis of
+    pre-processed `RNA-seq` data. Data can be imported from
+    `SummarizedExperiment` as well as `matrix` objects and can be
+    annotated from `BioMart`. Filtering for genes without too low
+    expression or containing required annotations, as well as filtering
+    for samples with sufficient correlation to other samples or total
+    number of reads is supported. The standard normalization methods
+    including cpm, rpkm and tpm can be used, and 'DESeq2` as well as voom
+    differential expression analyses are available.
+License: Apache License 2.0
 URL: https://github.com/insightsengineering/hermes/
 BugReports: https://github.com/insightsengineering/hermes/issues
-biocViews: 
-    RNASeq,
-    DifferentialExpression,
-    Normalization,
-    Preprocessing,
-    QualityControl
-Depends: 
+Depends:
     ggfortify,
     R (>= 4.1),
     SummarizedExperiment (>= 1.16)
 Imports:
     assertthat,
-    biomaRt,
     Biobase,
     BiocGenerics,
+    biomaRt,
     checkmate (>= 2.1),
     circlize,
     ComplexHeatmap,
@@ -59,7 +50,7 @@ Imports:
     dplyr,
     edgeR,
     EnvStats,
-    forcats,
+    forcats (>= 1.0.0),
     GenomicRanges,
     ggplot2,
     ggrepel (>= 0.9),
@@ -74,8 +65,8 @@ Imports:
     R6,
     Rdpack,
     rlang,
-    stats,
     S4Vectors,
+    stats,
     tidyr,
     utils
 Suggests:
@@ -88,9 +79,20 @@ Suggests:
     rmarkdown,
     statmod,
     testthat (>= 2.0),
-    vdiffr,
-    withr
-Collate: 
+    vdiffr
+VignetteBuilder:
+    knitr
+RdMacros:
+    lifecycle,
+    Rdpack
+biocViews: RNASeq, DifferentialExpression, Normalization, Preprocessing,
+    QualityControl
+Encoding: UTF-8
+Language: en-US
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Collate:
     'GeneSpec-class.R'
     'HermesData-validate.R'
     'HermesData-class.R'
@@ -105,6 +107,7 @@ Collate:
     'dplyr_compatibility.R'
     'draw_barplot.R'
     'draw_boxplot.R'
+    'draw_heatmap.R'
     'draw_scatterplot.R'
     'graphs.R'
     'join_cdisc.R'

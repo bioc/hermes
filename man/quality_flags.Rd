@@ -41,10 +41,10 @@ The input object with added quality flags.
 The function \code{add_quality_flags()} adds quality flag information to a \code{\link{AnyHermesData}} object:
 \itemize{
 \item \code{low_expression_flag}: for each gene, counts how many samples don't pass a minimum
-expression Counts per Million (CPM) threshold. If too many, then it flags this gene
+expression Counts per Million (\code{CPM}) threshold. If too many, then it flags this gene
 as a "low expression" gene.
 \item \code{tech_failure_flag}: first calculates the Pearson correlation matrix of the sample wise
-CPM values, resulting in a matrix measuring the correlation between samples.
+\code{CPM} values, resulting in a matrix measuring the correlation between samples.
 Then compares the average correlation per sample with a threshold - if it is too low,
 then the sample is flagged as a "technical failure" sample.
 \item \code{low_depth_flag}: computes the library size (total number of counts) per sample.
@@ -52,7 +52,7 @@ If this number is too low, the sample is flagged as a "low depth" sample.
 }
 
 Separate helper functions are internally used to create the flags, and
-separate getter functions allow easy access to the quality control flags in an object.
+separate \code{getter} functions allow easy access to the quality control flags in an object.
 }
 \details{
 While \code{object} already has the variables mentioned above as part of the
@@ -62,22 +62,22 @@ object creation.
 }
 \section{Functions}{
 \itemize{
-\item \code{h_low_expression_flag}: creates the low expression flag for genes
+\item \code{h_low_expression_flag()}: creates the low expression flag for genes
 given control settings.
 
-\item \code{h_low_depth_flag}: creates the low depth (library size) flag for samples
+\item \code{h_low_depth_flag()}: creates the low depth (library size) flag for samples
 given control settings.
 
-\item \code{h_tech_failure_flag}: creates the technical failure flag for samples
+\item \code{h_tech_failure_flag()}: creates the technical failure flag for samples
 given control settings.
 
-\item \code{get_tech_failure}: get the technical failure flags for all samples.
+\item \code{get_tech_failure()}: get the technical failure flags for all samples.
 
-\item \code{get_low_depth}: get the low depth failure flags for all samples.
+\item \code{get_low_depth()}: get the low depth failure flags for all samples.
 
-\item \code{get_low_expression}: get the low expression failure flags for all genes.
+\item \code{get_low_expression()}: get the low expression failure flags for all genes.
+
 }}
-
 \examples{
 # Adding default quality flags to `AnyHermesData` object.
 object <- hermes_data

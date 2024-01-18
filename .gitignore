@@ -47,7 +47,6 @@ design/*.html
 # MacOS Files
 .DS_Store
 .Rproj.user
-
 coverage.*
 
 tests/testthat/junit-result.xml
@@ -55,3 +54,12 @@ tests/testthat/junit-result.xml
 tests/testthat/Rplots.pdf
 
 tests/testthat/testthat-problems.rds
+
+# Test artifacts
+tests/testthat/junit-result.xml
+tests/testthat/Rplots.pdf
+tests/vdiffr.Rout.fail
+tests/testthat/testthat-problems.rds
+
+# knitr
+README.html
