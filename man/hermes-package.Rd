@@ -41,3 +41,5 @@ Other contributors:
 \itemize{
   \item F. Hoffmann-La Roche AG [copyright holder, funder]
 }
+
+}
