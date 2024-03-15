@@ -1,3 +1,6 @@
+# hermes 1.6.1
+* Fixed error in `counts<-` signature.
+
 # hermes 1.0.1
 * Additional `version` argument for `connect_biomart` to specify an Ensembl version.
 * Fixed tests.
