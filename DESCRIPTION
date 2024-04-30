@@ -2,7 +2,7 @@ Package: hermes
 Title: Preprocessing, analyzing, and reporting of RNA-seq data
 Type: Package
 Date: 2024-01-19
-Version: 1.8.0
+Version: 1.9.0
 Authors@R: c(
     person("Daniel", "Sabanés Bové", email = "daniel.sabanes_bove@roche.com", role = c("aut", "cre")),
     person("Namrata", "Bhatia", role = "aut"),
