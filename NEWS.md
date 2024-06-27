@@ -1,3 +1,8 @@
+# hermes 1.8.1
+
+### Miscellaneous
+* Change maintainer's email address.
+
 # hermes 1.7.1
 
 ### Enhancements
