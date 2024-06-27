@@ -3,7 +3,7 @@ title: "Introduction to `hermes`"
 package: hermes
 author:
   - name: Daniel Sabanés Bové
-    email: daniel.sabanes_bove@roche.com
+    email: daniel.sabanes_bove@rconis.com
   - Namrata Bhatia
   - Stefanie Bienert
   - Benoit Falquet
