@@ -1,3 +1,8 @@
+# hermes 1.13.1
+
+### Bug Fixes
+* Fixed issue with `draw_boxplot` for new `ggplot2` version.
+
 # hermes 1.9.1
 
 ### Miscellaneous
