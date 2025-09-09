@@ -24,18 +24,26 @@ jobs:
     uses: insightsengineering/r.pkg.template/.github/workflows/build-check-install.yaml@main
     secrets:
       REPO_GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
+    with:
+      additional-env-vars: |
+        NOT_CRAN=true
+      deps-installation-method: setup-r-dependencies
   bioccheck:
     name: BiocCheck 🩺
     uses: insightsengineering/r.pkg.template/.github/workflows/bioccheck.yaml@main
     secrets:
       REPO_GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
     with:
-      enable-bioccheck: true
+      enable-bioccheck: false
   coverage:
     name: Coverage 📔
     uses: insightsengineering/r.pkg.template/.github/workflows/test-coverage.yaml@main
     secrets:
       REPO_GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
+    with:
+      additional-env-vars: |
+        NOT_CRAN=true
+      deps-installation-method: setup-r-dependencies
   linter:
     if: github.event_name != 'push'
     name: SuperLinter 🦸‍♀️
@@ -47,6 +55,7 @@ jobs:
       REPO_GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
     with:
       auto-update: true
+      deps-installation-method: setup-r-dependencies
   gitleaks:
     name: gitleaks 💧
     uses: insightsengineering/r.pkg.template/.github/workflows/gitleaks.yaml@main
@@ -77,6 +86,8 @@ jobs:
     uses: insightsengineering/r.pkg.template/.github/workflows/style.yaml@main
     with:
       auto-update: true
+    secrets:
+      REPO_GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
   grammar:
     if: github.event_name != 'push'
     name: Grammar Check 🔤

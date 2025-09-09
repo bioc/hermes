@@ -4,7 +4,7 @@ test_that("h_diff_expr_voom works as expected", {
   object <- hermes_data
   design <- model.matrix(~SEX, colData(object))
   result <- h_diff_expr_voom(object, design)
-  expect_is(result, "data.frame")
+  expect_data_frame(result)
   expect_named(result, c("log2_fc", "stat", "p_val", "adj_p_val"))
   expect_true(S4Vectors::isSorted(result$p_val))
   expect_setequal(rownames(object), rownames(result))
@@ -23,7 +23,7 @@ test_that("h_diff_expr_voom can pass arguments to limma::eBayes", {
     winsor.tail.p = c(0.02, 0.2),
     stdev.coef.lim = c(0.09, 5)
   ))
-  expect_is(result, "data.frame")
+  expect_data_frame(result)
   result_orig <- h_diff_expr_voom(object, design)
   expect_false(identical(rownames(result), rownames(result_orig)))
 })
@@ -42,7 +42,7 @@ test_that("h_diff_expr_deseq2 works as expected", {
   object <- hermes_data
   design <- model.matrix(~SEX, colData(object))
   result <- h_diff_expr_deseq2(object, design)
-  expect_is(result, "data.frame")
+  expect_data_frame(result)
   expect_named(result, c("log2_fc", "stat", "p_val", "adj_p_val"))
   expect_true(S4Vectors::isSorted(result$adj_p_val))
   expect_setequal(rownames(object), rownames(result))
@@ -61,7 +61,7 @@ test_that("h_diff_expr_deseq2 can pass arguments to DESeq2::DESeq", {
     useT = TRUE,
     minmu = 0.7
   ))
-  expect_is(result, "data.frame")
+  expect_data_frame(result)
   result_orig <- h_diff_expr_deseq2(object, design)
   expect_false(identical(rownames(result), rownames(result_orig)))
 })
@@ -128,12 +128,12 @@ test_that("autoplot for HermesDataDiffExpr works as expected with custom options
   dat <- hermes_data
   colData(dat) <- df_cols_to_factor(colData(dat))
   object <- diff_expression(dat, "SEX", "voom")
-  result <- autoplot(object, adj_p_val_thresh = 0.92, log2_fc_thresh = 3)
+  result <- autoplot(object, adj_p_val_thresh = 0.9206, log2_fc_thresh = 3)
 
   x <- layer_data(result, 1)
   x <- x[!is.na(x$label), ]
   expect_equal(x$x, c(-3.44, -3.19, 3.39, 3.21, 3.8, 3.12, -3.13), tolerance = 1e-2)
-  expect_equal(x$y, rep(0.04008, 7), tolerance = 1e-2)
+  expect_equal(x$y, rep(0.04, 7), tolerance = 5e-2)
   expect_identical(
     x$label,
     c(

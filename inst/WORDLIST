@@ -17,7 +17,6 @@ SummarizedExperiment
 TPM
 VOOM
 Zhang
-cloneable
 cpm
 dichotomize
 dispersions
@@ -25,9 +24,6 @@ funder
 homoskedastic
 kilobases
 pre
-quartile
-repo
-reproducibility
 rpkm
 templated
 tpm

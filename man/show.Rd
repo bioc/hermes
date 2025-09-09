@@ -18,14 +18,12 @@ None (invisible \code{NULL}), only used for the side effect of printing to
 the console.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-
 A show method that displays high-level information of \code{\link{AnyHermesData}} objects.
 }
 \note{
 The same method is used for both \code{\link{HermesData}} and \code{\link{RangedHermesData}}
 objects. We need to define this separately to have this method used instead of
-the one inherited from \code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}}.
+the one inherited from \code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}}.
 }
 \examples{
 object <- hermes_data

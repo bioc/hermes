@@ -10,8 +10,6 @@
 The combined \code{\link{AnyHermesData}} object.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-
 This method combines \code{\link{AnyHermesData}} objects with the same ranges but different
 samples (columns in assays).
 }
@@ -19,9 +17,9 @@ samples (columns in assays).
 \itemize{
 \item Note that this just inherits
 \code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::cbind,SummarizedExperiment-method()}}. When binding a
-\code{\link{AnyHermesData}} object with a \code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}}
+\code{\link{AnyHermesData}} object with a \code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}}
 object, then the result will be a
-\code{\link[SummarizedExperiment:RangedSummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}} object (the more general
+\code{\link[SummarizedExperiment:SummarizedExperiment-class]{SummarizedExperiment::SummarizedExperiment}} object (the more general
 class).
 \item Note that the combined object needs to have unique sample IDs (column names).
 }

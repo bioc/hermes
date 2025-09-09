@@ -1,6 +1,6 @@
 #' `limma`/voom Differential Expression Analysis
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This helper functions performs the differential expression analysis with the voom
 #' method from the `limma` package (via [limma::voom()], [limma::lmFit()] and [limma::eBayes()])
@@ -59,7 +59,7 @@ h_diff_expr_voom <- function(object, design, ...) {
 
 #' `DESeq2` Differential Expression Analysis
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' This helper functions performs the differential expression analysis with
 #' [DESeq2::DESeq()] for a given [AnyHermesData] input and `design` matrix.
@@ -120,7 +120,7 @@ h_diff_expr_deseq2 <- function(object, design, ...) {
 
 #' Differential Expression Analysis
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description
 #'
 #' The `diff_expression()` function performs differential expression analysis
 #' using a method of preference.
@@ -182,7 +182,7 @@ diff_expression <- function(object,
     is_hermes_data(object),
     is.string(group)
   )
-  expect_factor(colData(object)[[group]], n.levels = 2L)
+  assert_factor(colData(object)[[group]], n.levels = 2)
 
   method <- match.arg(method, c("voom", "deseq2"))
 
@@ -256,7 +256,7 @@ setMethod(
   definition = function(object,
                         adj_p_val_thresh = 0.05,
                         log2_fc_thresh = 2.5) {
-    expect_proportion(adj_p_val_thresh)
+    assert_proportion(adj_p_val_thresh)
     assert_that(
       is.number(log2_fc_thresh),
       log2_fc_thresh > 0

@@ -17,6 +17,7 @@ jobs:
     with:
       skip-r-cmd-check: true
       skip-r-cmd-install: true
+      deps-installation-method: setup-r-dependencies
   docs:
     name: Pkgdown Docs 📚
     needs: release
@@ -25,14 +26,21 @@ jobs:
       REPO_GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
     with:
       default-landing-page: latest-tag
+      deps-installation-method: setup-r-dependencies
   validation:
     name: R Package Validation report 📃
     needs: release
     uses: insightsengineering/r.pkg.template/.github/workflows/validation.yaml@main
     secrets:
       REPO_GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
+    with:
+      deps-installation-method: setup-r-dependencies
   release:
     name: Create release 🎉
     uses: insightsengineering/r.pkg.template/.github/workflows/release.yaml@main
     secrets:
       REPO_GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
+  wasm:
+    name: Build WASM packages 🧑‍🏭
+    needs: release
+    uses: insightsengineering/r.pkg.template/.github/workflows/wasm.yaml@main
