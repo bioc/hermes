@@ -4,6 +4,12 @@
   "platform": "linux/amd64",
   "workspaceFolder": "/work",
   "workspaceMount": "source=${localWorkspaceFolder},target=/work,type=bind",
+  "mounts": [
+    "source=${localEnv:SSH_AUTH_SOCK},target=/ssh-agent,type=bind"
+  ],
+  "remoteEnv": {
+    "SSH_AUTH_SOCK": "/ssh-agent"
+  },
   "containerEnv": {
     "CI": "true",
     "NOT_CRAN": "true"
@@ -12,7 +18,8 @@
     "vscode": {
       "extensions": [
         "REditorSupport.r",
-        "mhutchie.git-graph"
+        "mhutchie.git-graph",
+        "openai.chatgpt"
       ]
     }
   },
