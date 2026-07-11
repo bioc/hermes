@@ -1,6 +1,11 @@
 {
   "name": "Bioconductor Devel",
   "image": "bioconductor/bioconductor_docker:devel",
+  "features": {
+    "ghcr.io/devcontainers-contrib/features/apt-get-packages:1": {
+      "packages": "texinfo,texlive-latex-base,texlive-latex-recommended,texlive-fonts-extra"
+    }
+  },
   "platform": "linux/amd64",
   "workspaceFolder": "/work",
   "workspaceMount": "source=${localWorkspaceFolder},target=/work,type=bind",
@@ -23,5 +28,5 @@
       ]
     }
   },
-  "postCreateCommand": "git config --global --unset-all core.sshCommand || true && Rscript -e 'pkgs <- c(\"languageserver\", \"httpgd\", \"jsonlite\", \"lintr\", \"diffviewer\"); missing <- pkgs[!vapply(pkgs, requireNamespace, logical(1), quietly = TRUE)]; if (length(missing)) install.packages(missing)'"
+  "postCreateCommand": "bash .devcontainer/setup.sh"
 }
