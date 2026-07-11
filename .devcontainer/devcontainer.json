@@ -5,10 +5,10 @@
   "workspaceFolder": "/work",
   "workspaceMount": "source=${localWorkspaceFolder},target=/work,type=bind",
   "mounts": [
-    "source=${localEnv:SSH_AUTH_SOCK},target=/ssh-agent,type=bind"
+    "source=/run/host-services/ssh-auth.sock,target=/run/host-services/ssh-auth.sock,type=bind"
   ],
   "remoteEnv": {
-    "SSH_AUTH_SOCK": "/ssh-agent"
+    "SSH_AUTH_SOCK": "/run/host-services/ssh-auth.sock"
   },
   "containerEnv": {
     "CI": "true",
@@ -23,5 +23,5 @@
       ]
     }
   },
-  "postCreateCommand": "Rscript -e 'pkgs <- c(\"languageserver\", \"httpgd\", \"jsonlite\", \"lintr\", \"diffviewer\"); missing <- pkgs[!vapply(pkgs, requireNamespace, logical(1), quietly = TRUE)]; if (length(missing)) install.packages(missing)'"
+  "postCreateCommand": "git config --global --unset-all core.sshCommand || true && Rscript -e 'pkgs <- c(\"languageserver\", \"httpgd\", \"jsonlite\", \"lintr\", \"diffviewer\"); missing <- pkgs[!vapply(pkgs, requireNamespace, logical(1), quietly = TRUE)]; if (length(missing)) install.packages(missing)'"
 }
